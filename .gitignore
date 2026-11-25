@@ -1,0 +1,27 @@
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*adc*.json
+service-account*.json
+
+# Java / Maven
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+*.log
+
+# Node / React / Electron
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+frontend/out/
+frontend/coverage/
+
+# IDE & OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db

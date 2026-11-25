@@ -1,0 +1,251 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 2. Importação da Fonte */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* 3. Variáveis e Estilos Base Customizados */
+@layer base {
+  :root {
+    --background: 240 10% 98%;
+    --foreground: 240 6% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 6% 10%;
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 240 6% 10%;
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 221 83% 63%;
+    --radius: 0.75rem;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* 4. Componentes Customizados */
+@layer components {
+  /* `transition-colors` (só cor) em vez de `transition-all`.
+   *
+   * `transition-all` animava TAMBÉM `box-shadow`: o `hover:shadow-lg` de um
+   * card grande (blur de 4xl) não é uma propriedade compostável, então cada
+   * frame do hover obrigava o browser a repintar a área da sombra na CPU —
+   * 18 repaints por hover de 300 ms. A sombra agora salta de uma vez (é o
+   * que a maioria dos design systems faz para sombra grande) e só a cor
+   * transiciona. */
+  .card {
+    @apply bg-card text-card-foreground p-6 rounded-xl shadow-sm border border-transparent transition-colors duration-200 hover:shadow-lg hover:border-border;
+  }
+
+  /* `transform` é compostável (GPU); `background-color` é de elemento
+   * pequeno. `box-shadow` fica de fora de propósito: com `transition-all` a
+   * sombra do botão animava junto, repintando a cada frame. */
+  .btn-primary {
+    @apply py-2 px-5 bg-primary text-primary-foreground font-semibold rounded-lg shadow-md hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 transition-[transform,background-color] duration-150 ease-in-out transform hover:-translate-y-px active:scale-95;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-2 border border-input rounded-lg bg-transparent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary;
+  }
+}
+
+/* 5. Animações e Estilos Adicionais */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animação de entrada do Dashboard — a animação CONTINUA, o que muda é o
+ * custo e o tempo em que o conteúdo fica invisível.
+ *
+ * `opacity` e `transform` são propriedades compostáveis: o browser anima na
+ * GPU, sem repintar a área. O que não é compositable é a sombra, e por isso
+ * ela ficou de fora das transições acima.
+ *
+ * Mudanças em relação ao que existia:
+ *  - duração de 0,6 s para 0,3 s, e escalonamento de 0,1 s para 0,05 s: o
+ *    conteúdo não fica mais invisível por meio segundo a cada navegação;
+ *  - o `opacity: 0` como estado ESTÁTICO saiu. Ele era o que mantinha o card
+ *    invisível durante o `animation-delay`; com `backwards`, o estado
+ *    anterior à animação já é o do keyframe, e não há "flash" de opacidade;
+ *  - a animação volta a ser aplicada também quando há cache — ela é parte da
+ *    tela, não uma cortesia da primeira visita. */
+.anim-entrada {
+  animation: fadeIn 0.3s ease-out backwards;
+}
+
+.anim-entrada:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.anim-entrada:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.anim-entrada:nth-child(3) {
+  animation-delay: 0.15s;
+}
+
+.anim-entrada:nth-child(4) {
+  animation-delay: 0.2s;
+}
+
+/* O gráfico vem depois dos cards na ordem da tela. */
+.anim-entrada.dashboard-chart {
+  animation-delay: 0.25s;
+}
+
+/* Entrada das páginas.
+ *
+ * Cada bloco de topo da página (cabeçalho, barra de filtros, cards, tabela)
+ * entra com um fade + slide curto e escalonado. `opacity` e `transform` são
+ * compostáveis, então isso roda na GPU, sem repintar a área.
+ *
+ * O escalonamento é curto de propósito: 0,04 s por bloco. Com 0,1 s (o que já
+ * houve) o último bloco só aparecia meio segundo depois, e o usuário lia isso
+ * como "a página demora" — que é exatamente o que a animação deveria evitar.
+ */
+.anim-pagina > * {
+  animation: fadeIn 0.3s ease-out backwards;
+}
+
+.anim-pagina > *:nth-child(1) {
+  animation-delay: 0.04s;
+}
+
+.anim-pagina > *:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.anim-pagina > *:nth-child(3) {
+  animation-delay: 0.12s;
+}
+
+.anim-pagina > *:nth-child(4) {
+  animation-delay: 0.16s;
+}
+
+.anim-pagina > *:nth-child(5) {
+  animation-delay: 0.2s;
+}
+
+.anim-pagina > *:nth-child(6) {
+  animation-delay: 0.24s;
+}
+
+.anim-pagina > *:nth-child(n+7) {
+  animation-delay: 0.28s;
+}
+
+/* O relatório impresso fica de fora: ele é gerado no momento da impressão,
+ * e uma animação de opacidade/transformo o deslocaria do layout impresso. */
+.anim-pagina > .printable-area {
+  animation: none;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--secondary));
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+  border: 2px solid hsl(var(--secondary));
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3;
+}
+
+.recharts-tooltip-wrapper {
+  @apply rounded-lg border border-border shadow-lg;
+}
+
+.recharts-default-tooltip {
+  @apply bg-card p-2 text-sm;
+  border: none !important;
+}
+
+.recharts-legend-item {
+  margin-right: 10px !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+/* Print Styles */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .printable-area,
+  .printable-area * {
+    visibility: visible;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .printable-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .no-print {
+    display: none;
+  }
+
+  .page-break {
+    page-break-after: always;
+  }
+
+  @page {
+    size: auto;
+    margin: 5mm;
+  }
+}
+
+
+.sidebar-transition {
+  @apply transition-transform duration-300 ease-in-out;
+}
+
+/* Electron Drag Regions */
+.app-drag {
+  -webkit-app-region: drag;
+}
+
+.app-no-drag {
+  -webkit-app-region: no-drag;
+}

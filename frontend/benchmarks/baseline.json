@@ -1,0 +1,53 @@
+{
+  "geradoEm": "2026-10-22T11:12:27.583Z",
+  "ambiente": {
+    "node": "v22.22.2",
+    "chrome": "google-chrome",
+    "backend": "http://localhost:8080",
+    "plataforma": "linux 7.2.10-200.fc44.x86_64"
+  },
+  "telas": [
+    {
+      "tela": "Dashboard",
+      "requests": 94,
+      "longTasks": 1,
+      "bloqueanteMs": 184,
+      "piorTaskMs": 184
+    },
+    {
+      "tela": "Coletas",
+      "requests": 4,
+      "longTasks": 0,
+      "bloqueanteMs": 0,
+      "piorTaskMs": 0
+    },
+    {
+      "tela": "Fechamentos",
+      "requests": 4,
+      "longTasks": 0,
+      "bloqueanteMs": 0,
+      "piorTaskMs": 0
+    },
+    {
+      "tela": "Relatorios",
+      "requests": 12,
+      "longTasks": 1,
+      "bloqueanteMs": 76,
+      "piorTaskMs": 76
+    },
+    {
+      "tela": "Produtores",
+      "requests": 4,
+      "longTasks": 0,
+      "bloqueanteMs": 0,
+      "piorTaskMs": 0
+    },
+    {
+      "tela": "Usuarios",
+      "requests": 0,
+      "longTasks": 0,
+      "bloqueanteMs": 0,
+      "piorTaskMs": 0
+    }
+  ]
+}

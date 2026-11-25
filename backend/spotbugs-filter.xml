@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Allowlist de padrões do SpotBugs (includeFilterFile).
+
+  Ser uma allowlist e nao uma lista de exclusoes e deliberado: um padrao novo
+  que o SpotBugs comece a reportar nao entra no gate sem que alguem decida
+  revisar. O contrario tornaria o gate silenciosamente mais fraco a cada
+  versao do plugin.
+
+  O que NAO entra aqui nao entra por este arquivo. As exclusoes por classe
+  estao em spotbugs-exclude.xml — nao da para exprimir "padrao X, mas nao
+  na classe Y" em um unico filtro, porque varios <Match> sao unidos por OU:
+  um <Match> so com <Class>, dentro deste arquivo, INCLUIRIA tudo que fosse
+  daquela classe, que e o oposto do pretendido. Por isso o segundo arquivo.
+-->
+<FindBugsFilter>
+  <Match>
+    <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2,EI_EXPOSE_STATIC_REP2,MWN_MISMATCHED_WAIT,NP_NULL_ON_SOME_PATH,RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE,DLS_DEAD_LOCAL_STORE,UWF_UNUSED_FIELD,UWF_UNKNOWN_FIELD,NP_BOOLEAN_RETURN_NULL,SIC_INNER_SHOULD_BE_STATIC_ANON,OBL_UNSATISFIED_OBLIGATION"/>
+  </Match>
+</FindBugsFilter>
