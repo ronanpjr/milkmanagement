@@ -135,7 +135,7 @@ REACT_APP_API_BASE_URL=http://localhost:8080 npm run build
 ## Project Structure
 
 ```text
-erp-ai-ocr-starter/
+milkmanagement/
 ├── backend/                  # Spring Boot 3 REST API, Flyway migrations, OCR & Pricing
 ├── frontend/                 # React 19 + Tailwind + Electron desktop wrapper
 ├── docs/                     # Architecture diagram assets

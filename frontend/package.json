@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "electron-forge start",
-    "prebuild": "node -e \"['.env','.env.production','.env.local','.env.production.local'].forEach(function(f){require('dotenv').config({path:f,override:true})});if(!process.env.REACT_APP_API_BASE_URL){console.error('\\nERRO de build: REACT_APP_API_BASE_URL nao esta definida.\\n\\nO connect-src da CSP em public/index.html ficaria com o placeholder literal %REACT_APP_API_BASE_URL%, que o parser da CSP descarta: a app abriria e TODA chamada a API seria bloqueada em silencio, sem erro visivel.\\n\\nDefina a variavel no shell ou em .env / .env.production (ordem de precedencia igual a do CRA). Veja .env.example.\\n');process.exit(1)}console.log('[build] REACT_APP_API_BASE_URL =',process.env.REACT_APP_API_BASE_URL)\"",
+    "prebuild": "node -e \"['.env','.env.production','.env.local','.env.production.local'].forEach(function(f){require('dotenv').config({path:f,override:true})});if(!process.env.REACT_APP_API_BASE_URL){console.error('\\nBuild ERROR: REACT_APP_API_BASE_URL is not defined.\\n\\nThe CSP connect-src in public/index.html would keep the literal %REACT_APP_API_BASE_URL% placeholder, which the CSP parser discards: the app would open and EVERY API call would be silently blocked with no visible error.\\n\\nSet the variable in your shell or in .env / .env.production (same precedence order as CRA). See .env.example.\\n');process.exit(1)}console.log('[build] REACT_APP_API_BASE_URL =',process.env.REACT_APP_API_BASE_URL)\"",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
@@ -70,8 +70,8 @@
     },
     "publish": {
       "provider": "github",
-      "owner": "your-github-org",
-      "repo": "erp-ai-ocr-starter"
+      "owner": "ronanpjr",
+      "repo": "milkmanagement"
     }
   },
   "eslintConfig": {
