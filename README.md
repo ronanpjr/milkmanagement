@@ -54,6 +54,20 @@ flowchart LR
 
 ---
 
+## Screenshots
+
+> *Captured from the production UI running on synthetic demo data.*
+
+| Dashboard | Dual-AI OCR Upload (Gemini / Azure) |
+| :---: | :---: |
+| <img src="./docs/screenshots/dashboard.png" alt="Dashboard" width="100%" /> | <img src="./docs/screenshots/ocr-upload.png" alt="Dual-AI OCR Upload" width="100%" /> |
+
+| Human-in-the-Loop OCR Review | Reports & Analytics |
+| :---: | :---: |
+| <img src="./docs/screenshots/ocr-review.png" alt="OCR Review" width="100%" /> | <img src="./docs/screenshots/reports.png" alt="Reports & Analytics" width="100%" /> |
+
+---
+
 ## Key Engineering Decisions
 
 1. **Dual-AI OCR Pipeline (`OcrServiceFactory`):**
